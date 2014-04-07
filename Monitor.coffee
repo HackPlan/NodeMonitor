@@ -45,7 +45,7 @@ class Monitor
   this.psData = (socket) ->
     child_process.exec "ps xufwa", {}, (error, stdout, stderr) ->
       psData['ps'] =
-      user: {}
+        user: {}
         all: {}
 
       psArray = stdout.split("\n")
