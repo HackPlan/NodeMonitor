@@ -11,7 +11,7 @@ app.get "/", (req, res) ->
   res.sendfile __dirname + "/index.html"
   return
 
+
 io.sockets.on "connection", (socket) ->
-  Monitor.memData socket
-  setInterval(Monitor.osData, 1000)
-  setInterval(Monitor.memData, 5000)
+  setInterval(Monitor.osData, 1000, socket)
+  setInterval(Monitor.memData, 5000, socket)

@@ -1,0 +1,166 @@
+html
+    head
+        meta(charset='utf-8')
+        title NodeMonitor
+        link(href='http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+        link(href='./style.css', rel='stylesheet', type='text/css')
+        script(type='text/javascript', src='http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js')
+        script(type='text/javascript', src='http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js')
+        script(src='/socket.io/socket.io.js')
+        script(src='./change.js')
+    body
+        #navbar-wrapper
+            #navigation.navbar.navbar-default.navbar-fixed-top
+                .container
+                    .navbar-header
+                        a.navbar-brand(href='/') NodeMonitor
+                    .navbar-collapse.collapse
+                        ul.nav.navbar-nav
+                            li.active
+                                a(href='/') Top
+                            li
+                                a(href='/') System
+                            li
+                                a(href='/') Memory
+                            li
+                                a(href='/') Disk
+                            li
+                                a(href='/') Process
+
+        .container
+            .row
+                .col-md-4
+                    .panel.panel-default
+                        .panel-heading
+                            h3.panel-title System
+                        table.table
+                            tbody
+                                tr
+                                    td HostName
+                                    td faceair-X550VC
+                                tr
+                                    td System
+                                    td Linux 3.5.0-46-generic
+                                tr
+                                    td Cpus
+                                    td Intel(R) Core(TM) i3-3110M CPU @ 2.40GHz * 4
+                                tr
+                                    td ServerTime
+                                    td 2014-4-7 14:27:56
+                                tr
+                                    td UpTime
+                                    td 4 days 18 hours 42 mins
+                                tr
+                                    td Loadavg
+                                    td
+                                        span.label.label-info  0.00
+                                        span.label.label-info 0.00
+                                        span.label.label-info 0.00
+                                        span.label.label-info 1/134
+
+                .col-md-8
+                    .panel.panel-default
+                        .panel-heading
+                            h3.panel-title  Memory & Disk
+                        .panel-body
+                            p Physical memory of 3.75 G, the real memory usage 1.306 G, Cache Of memory 1.099 G
+                            .progress
+                                .progress-bar.progress-bar-danger(role='progressbar', style='width: 68%;')
+                                    | real 68%
+                                .progress-bar.progress-bar-warning(role='progressbar', style='width: 15%;')
+                                    | cached 15%
+                                .progress-bar.progress-bar-success(role='progressbar', style='width: 17%;')
+                                    | free 17%
+                            p SWAP total of 7.628 G, has been used 0 G
+                            .progress
+                                .progress-bar.progress-bar-warning(role='progressbar', style='width: 0%;')
+                                    | swapUsed 0%
+                                .progress-bar.progress-bar-success(role='progressbar', style='width: 100%;')
+                                    | swapFree 100%
+                            p Disk space of 221.593 G, has been used 35.907 G
+                                .progress
+                                    .progress-bar.progress-bar-info(role='progressbar', style='width: 16%;')
+                                        | diskUsed 16%
+                                    .progress-bar.progress-bar-success(role='progressbar', style='width: 84%;')
+                                        | diskFree 84%
+            .panel.panel-default
+                table.table.table-hover
+                    thead
+                        tr
+                            th USER
+                            th PS
+                            th %CPU
+                            th %MEM
+                            th %CACHE
+                    tbody
+                        tr
+                            td root
+                            td 33
+                            td 0%
+                            td 112 MB (9.9%)
+                            td 305 MB
+                        tr
+                            td mongodb
+                            td 1
+                            td 0.8%
+                            td 23 MB (2.2%)
+                            td 198 MB
+                        tr
+                            td syslog
+                            td 1
+                            td 0%
+                            td 1 MB (0%)
+                            td 2 MB
+                        tr
+                            td mysql
+                            td 1
+                            td 0%
+                            td 388 MB (37.8%)
+                            td 774 MB
+                        tr
+                            td www
+                            td 7
+                            td 0%
+                            td 60 MB (5.4%)
+                            td 178 MB
+                        tr
+                            td faceair
+                            td 3
+                            td 0%
+                            td 23 MB (2.1%)
+                            td 132 MB
+
+            .panel.panel-default
+                table.table.table-hover
+                    thead
+                        tr
+                            th USER
+                            th PID
+                            th %CPU
+                            th %MEM
+                            th VSZ
+                            th RES
+                            th TTY
+                            th STAT
+                            th START
+                            th TIME
+                            th COMMAND
+                    tbody
+                        tr
+                            td root
+                            td 33
+                            td 0%
+                            td 112 MB (9.9%)
+                            td 305 MB
+                            td
+                            td
+                            td
+                            td
+                            td
+                            td
+        footer
+            .container
+                .pull-left
+                    | Powered by&nbsp;
+                    a.text-muted(href='https://github.com/faceair/NodeMonitor', target='_blank') NodeMonitor
+                    | &nbsp;.

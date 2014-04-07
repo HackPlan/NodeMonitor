@@ -1,0 +1,28 @@
+body {
+    padding-top: 70px;
+    background: #E0E0E0;
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important
+}
+
+table {
+    font-size: 14px;
+}
+
+a:hover, a:focus {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto
+}
+
+footer {
+    line-height: 150%;
+    padding: 10px;
+    color: #999999;
+    font-size: 12px;
+    background: #fff;
+    border-top: 1px solid #CCC
+}
