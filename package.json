@@ -1,0 +1,10 @@
+{
+  "name": "NodeMonitor",
+  "version": "0.1",
+  "scripts": {
+    "start": "node ./monitor/app.js"
+  },
+  "dependencies": {
+    "socket.io": "~0.9"
+  }
+}
