@@ -4,10 +4,7 @@ html
         title NodeMonitor
         link(href='http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css', rel='stylesheet', type='text/css')
         link(href='./style.css', rel='stylesheet', type='text/css')
-        script(type='text/javascript', src='http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js')
-        script(type='text/javascript', src='http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js')
-        script(src='/socket.io/socket.io.js')
-        script(src='/change.coffee')
+
     body
         #navbar-wrapper
             #navigation.navbar.navbar-default.navbar-fixed-top
@@ -37,26 +34,28 @@ html
                             tbody
                                 tr
                                     td HostName
-                                    td faceair-X550VC
+                                    td
+                                        span#hostname loading...
                                 tr
                                     td System
-                                    td Linux 3.5.0-46-generic
+                                    td
+                                        span#system loading...
                                 tr
                                     td Cpus
-                                    td Intel(R) Core(TM) i3-3110M CPU @ 2.40GHz * 4
+                                    td
+                                        span#cpus loading...
                                 tr
                                     td ServerTime
-                                    td 2014-4-7 14:27:56
+                                    td
+                                        span#servertime loading...
                                 tr
                                     td UpTime
-                                    td 4 days 18 hours 42 mins
+                                    td
+                                        span#uptime loading...
                                 tr
                                     td Loadavg
                                     td
-                                        span.label.label-info  0.00
-                                        span.label.label-info 0.00
-                                        span.label.label-info 0.00
-                                        span.label.label-info 1/134
+                                        span#loadavg.label.label-info loading...
 
                 .col-md-8
                     .panel.panel-default
@@ -164,3 +163,8 @@ html
                     | Powered by&nbsp;
                     a.text-muted(href='https://github.com/faceair/NodeMonitor', target='_blank') NodeMonitor
                     | &nbsp;.
+        script(type='text/javascript', src='http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js')
+        script(type='text/javascript', src='http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js')
+        script(type='text/javascript', src='http://cdn.staticfile.org/socket.io/0.9.16/socket.io.min.js')
+        script(type='text/javascript', src='http://cdn.staticfile.org/coffee-script/1.7.1/coffee-script.min.js')
+        script(type='text/coffeescript', src='/change.coffee')
