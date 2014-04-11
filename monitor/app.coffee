@@ -16,4 +16,3 @@ app.listen 3000
 
 io.sockets.on "connection", (socket) ->
   setInterval(Monitor.osData, 1000, socket)
-  setInterval(Monitor.memData, 5000, socket)

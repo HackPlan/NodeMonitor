@@ -14,15 +14,19 @@ class Monitor
     uptimeStr += hours + " hours "  if hours
     uptimeStr += min + " mins"
     Today = new Date()
+    loadavg = os.loadavg()
+    loadavg_str = ""
+    for name, i in loadavg
+      loadavg_str += loadavg[i].toFixed(2) + " "
     osData["os"] =
-    hostname: os.hostname()
+      hostname: os.hostname()
       type: os.type()
       release: os.release()
       cpus: os.cpus()[0]["model"]
-      servertime: Today.getFullYear() + "-" + (Today.getMonth() + 1) + "-" + Today.getDate() + " " + Today.getHours() + "：" + Today.getMinutes() + "：" + Today.getSeconds()
+      servertime: Today.getFullYear() + "-" + (Today.getMonth() + 1) + "-" + Today.getDate() + " " + Today.getHours() + ":" + Today.getMinutes() + ":" + Today.getSeconds()
       uptime: uptimeStr
-      loadavg: os.loadavg()
-    socket.emit osData
+      loadavg: loadavg_str
+    socket.emit("os",osData["os"])
     return
 
   this.memData = (socket) ->
