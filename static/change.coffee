@@ -1,4 +1,4 @@
-socket = io.connect("http://localhost/")
+socket = io.connect("http://lochost/")
 socket.on "os", (data) ->
   $('#hostname').html(data.hostname)
   $('#system').html(data.type + " " + data.release)
@@ -32,3 +32,12 @@ socket.on "disk", (data) ->
   $('#diskUsedPer').text("diskUsed " + data.diskUsedPer  + " %")
   $('#diskFreePer').attr("style","width: " + data.diskFreePer + "%;")
   $('#diskFreePer').text("diskFree " + data.diskFreePer  + " %")
+
+socket.on "ps", (data) ->
+  psuser = psall = ""
+  for user of data["user"]
+    psuser += ("<tr><td>"+user+"</td><td>"+data["user"][user].procNum+"</td><td>"+data["user"][user].cpuPer.toFixed(1)+"%</td><td>"+(data["user"][user].realMem/1024).toFixed(1)+" MB ("+data["user"][user].memPer.toFixed(1)+"%)</td><td>"+(data["user"][user].swapMem/1024).toFixed(1)+" MB</td></tr>")
+  $("#psuser").html(psuser)
+  for i of data["all"]
+    psall += ("<tr><td>"+data["all"][i][0]+"</td><td>"+data["all"][i][1]+"</td><td>"+data["all"][i][2]+"</td><td>"+data["all"][i][3]+"</td><td>"+data["all"][i][4]+"</td><td>"+data["all"][i][5]+"</td><td>"+data["all"][i][6]+"</td><td>"+data["all"][i][7]+"</td><td>"+data["all"][i][8]+"</td><td>"+data["all"][i][9]+"</td><td>"+data["all"][i][10]+"</td></tr>")
+  $("#psall").html(psall)

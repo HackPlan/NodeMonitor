@@ -23,6 +23,7 @@ exports.runWebSocket = (port) ->
       Monitor.osData socket
       Monitor.memData socket
       Monitor.diskData socket
+      Monitor.psData socket
     sendData()
     intervalId = setInterval(sendData, 5000)
     socket.on 'disconnect', ->

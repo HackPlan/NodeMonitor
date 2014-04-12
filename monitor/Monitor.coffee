@@ -53,6 +53,7 @@ class Monitor
     return
 
   this.psData = (socket) ->
+    psData = {}
     child_process.exec "ps xufwa", {}, (error, stdout, stderr) ->
       psData['ps'] =
         user: {}
@@ -62,7 +63,7 @@ class Monitor
       i = 1
       while i < (psArray.length - 1)
         vpsArrayInfo = psArray[i]
-        psArray[i] = psArray[i].replace("  ", " ")  while psArray[i].match("  ")
+        psArray[i] = psArray[i].replace("  ", " ") while psArray[i].match("  ")
         procArray = psArray[i].split(" ")
         allprocArray = []
         j = 0
@@ -70,12 +71,12 @@ class Monitor
           if j < 10
             allprocArray[j] = procArray[j]
           else
-            allprocArray[10] = vpsArrayInfo.substr(64).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
-              "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(" ", "&nbsp;")
+            allprocArray[10] = vpsArrayInfo.substr(64)
+            allprocArray[10] = allprocArray[10].replace(" ", "&nbsp;") while allprocArray[10].match(" ")
           j++
         psData['ps']["all"][i - 1] = allprocArray
-        if typeof data['ps']["user"][procArray[0]] is "undefined"
-          data['ps']["user"][procArray[0]] =
+        if typeof psData['ps']["user"][procArray[0]] is "undefined"
+          psData['ps']["user"][procArray[0]] =
             cpuPer: 0
             memPer: 0
             swapMem: 0
@@ -89,10 +90,9 @@ class Monitor
         ]
         numbers.forEach (item, index, array) ->
           psData['ps']["user"][procArray[0]][item] += Number(procArray[index + 2])
-          return
         psData['ps']["user"][procArray[0]]["procNum"] += 1
         i++
-    socket.emit psData
+      socket.emit("ps",psData['ps'])
     return
 
   this.diskData = (socket) ->
