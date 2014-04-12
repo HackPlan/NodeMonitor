@@ -39,16 +39,16 @@ class Monitor
       realMemPer = Math.round(realMemUsed / memInfo[1] * 100)
       cachedMemPer = Math.round(memInfo[6] / memInfo[1] * 100)
       memData["mem"] =
-        totalMem: memInfo[1]
-        realMem: memInfo[2]
+        totalMem: memInfo[1] + "M"
+        realMem: memInfo[2] + "M"
         realMemPer: realMemPer
         cachedMemPer: cachedMemPer
-        cachedMem: memInfo[6]
+        cachedMem: memInfo[6] + "M"
         freeMemPer: (100 - realMemPer - cachedMemPer - buffersMemPer)
-        swaptotalMem: memInfo[9]
+        swaptotalMem: memInfo[9] + "M"
         swapUsedMemPer: Math.round(memInfo[10] / memInfo[9] * 100)
         swapFreeMemPer: Math.round((memInfo[9] - memInfo[10]) / memInfo[9] * 100)
-        swapUsedMem: memInfo[10]
+        swapUsedMem: memInfo[10] + "M"
       socket.emit("mem",memData["mem"])
     return
 
@@ -96,18 +96,18 @@ class Monitor
     return
 
   this.diskData = (socket) ->
+    diskData = {}
     child_process.exec "df", {}, (error, stdout, stderr) ->
       dkArray = stdout.split("\n")
-      diskAll = diskUsed = diskRate = 0
-      i = 1
-      while i < (dkArray.length - 1)
-        dkArray[i] = dkArray[i].replace("  ", " ")  while dkArray[i].match("  ")
-        dkArrayInfo = dkArray[i].split(" ")
-        diskAll += Number(dkArrayInfo[1])
-        diskUsed += Number(dkArrayInfo[2])
-        i++
-      diskData["disk"]['diskRate'] = Math.round(diskUsed / diskAll * 100) + " %"
-    socket.emit diskData
+      dkArray[1] = dkArray[1].replace("  ", " ") while dkArray[1].match("  ")
+      dkArrayInfo = dkArray[1].split(" ")
+
+      diskData["disk"] =
+        diskUsedPer: Math.round(Number(dkArrayInfo[2]) / Number(dkArrayInfo[1]) * 100)
+        diskFreePer: 100 - Math.round(Number(dkArrayInfo[2]) / Number(dkArrayInfo[1]) * 100)
+        diskAll: Math.round(Number(dkArrayInfo[1]) / 1048576) + "G"
+        diskUsed: Math.round(Number(dkArrayInfo[2]) / 1048576) + "G"
+      socket.emit("disk",diskData["disk"])
     return
 
 module.exports = Monitor

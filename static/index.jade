@@ -3,7 +3,7 @@ html
         meta(charset='utf-8')
         title NodeMonitor
         link(href='http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css', rel='stylesheet', type='text/css')
-        link(href='./style.css', rel='stylesheet', type='text/css')
+        link(href='/style.css', rel='stylesheet', type='text/css')
 
     body
         #navbar-wrapper
@@ -84,12 +84,15 @@ html
                                     | loading...
                                 #swapFreeMemPer.progress-bar.progress-bar-success(role='progressbar', style='width: 50%;')
                                     | loading...
-                            p Disk space of 221.593 G, has been used 35.907 G
+                            p Disk total&nbsp;
+                                span#diskAll.label.label-primary loading...
+                                span &nbsp;, has been used&nbsp;
+                                span#diskUsed.label.label-danger loading...
                                 .progress
-                                    .progress-bar.progress-bar-info(role='progressbar', style='width: 16%;')
-                                        | diskUsed 16%
-                                    .progress-bar.progress-bar-success(role='progressbar', style='width: 84%;')
-                                        | diskFree 84%
+                                    #diskUsedPer.progress-bar.progress-bar-danger(role='progressbar', style='width: 50%;')
+                                        | loading...
+                                    #diskFreePer.progress-bar.progress-bar-success(role='progressbar', style='width: 50%;')
+                                        | loading...
             .panel.panel-default
                 table.table.table-hover
                     thead

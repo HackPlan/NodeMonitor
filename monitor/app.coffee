@@ -11,27 +11,22 @@ exports.runWebServer = ->
       if err
         res.writeHead 500
         return res.end('Error loading ' + reqfile)
-
       res.writeHead 200
       res.end(data)
-
-  app.listen 3000
-
+  app.listen 2998
   return app
 
 exports.runWebSocket = (port) ->
   io = require('socket.io').listen port
-
   io.sockets.on 'connection', (socket) ->
     sendData = ->
       Monitor.osData socket
-
+      Monitor.memData socket
+      Monitor.diskData socket
     sendData()
-    setInterval sendData, 1000
-
+    intervalId = setInterval(sendData, 5000)
     socket.on 'disconnect', ->
       clearTimeout intervalId
-
 unless module.parent
   app = exports.runWebServer()
   exports.runWebSocket app
