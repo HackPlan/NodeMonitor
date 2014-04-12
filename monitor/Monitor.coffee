@@ -39,11 +39,17 @@ class Monitor
       realMemPer = Math.round(realMemUsed / memInfo[1] * 100)
       cachedMemPer = Math.round(memInfo[6] / memInfo[1] * 100)
       memData["mem"] =
-      realMemPer: realMemPer
+        totalMem: memInfo[1]
+        realMem: memInfo[2]
+        realMemPer: realMemPer
         cachedMemPer: cachedMemPer
+        cachedMem: memInfo[6]
         freeMemPer: (100 - realMemPer - cachedMemPer - buffersMemPer)
+        swaptotalMem: memInfo[9]
         swapUsedMemPer: Math.round(memInfo[10] / memInfo[9] * 100)
-      socket.emit memData
+        swapFreeMemPer: Math.round((memInfo[9] - memInfo[10]) / memInfo[9] * 100)
+        swapUsedMem: memInfo[10]
+      socket.emit("mem",memData["mem"])
     return
 
   this.psData = (socket) ->

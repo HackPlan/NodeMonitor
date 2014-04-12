@@ -12,7 +12,8 @@ url = require('url')
 app = require("http").createServer(handler)
 io = require("socket.io").listen(app)
 fs = require("fs")
-app.listen 3000
+app.listen 2998
 
 io.sockets.on "connection", (socket) ->
   setInterval(Monitor.osData, 1000, socket)
+  setInterval(Monitor.memData, 5000, socket)

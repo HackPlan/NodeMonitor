@@ -62,20 +62,28 @@ html
                         .panel-heading
                             h3.panel-title  Memory & Disk
                         .panel-body
-                            p Physical memory of 3.75 G, the real memory usage 1.306 G, Cache Of memory 1.099 G
+                            p Total memory&nbsp;
+                                span#totalMem.label.label-primary loading...
+                                span &nbsp;, Real memory usage&nbsp;
+                                span#realMem.label.label-danger loading...
+                                span &nbsp;, Cache memory&nbsp;
+                                span#cachedMem.label.label-warning loading...
                             .progress
-                                .progress-bar.progress-bar-danger(role='progressbar', style='width: 68%;')
-                                    | real 68%
-                                .progress-bar.progress-bar-warning(role='progressbar', style='width: 15%;')
-                                    | cached 15%
-                                .progress-bar.progress-bar-success(role='progressbar', style='width: 17%;')
-                                    | free 17%
-                            p SWAP total of 7.628 G, has been used 0 G
+                                #realMemPer.progress-bar.progress-bar-danger(role='progressbar', style='width: 33%;')
+                                    | loading...
+                                #cachedMemPer.progress-bar.progress-bar-warning(role='progressbar', style='width: 34%;')
+                                    | loading...
+                                #freeMemPer.progress-bar.progress-bar-success(role='progressbar', style='width: 33%;')
+                                    | loading...
+                            p SWAP total&nbsp;
+                                span#swaptotalMem.label.label-primary loading...
+                                span &nbsp;, has been used&nbsp;
+                                span#swapUsedMem.label.label-warning loading...
                             .progress
-                                .progress-bar.progress-bar-warning(role='progressbar', style='width: 0%;')
-                                    | swapUsed 0%
-                                .progress-bar.progress-bar-success(role='progressbar', style='width: 100%;')
-                                    | swapFree 100%
+                                #swapUsedMemPer.progress-bar.progress-bar-warning(role='progressbar', style='width: 50%;')
+                                    | loading...
+                                #swapFreeMemPer.progress-bar.progress-bar-success(role='progressbar', style='width: 50%;')
+                                    | loading...
                             p Disk space of 221.593 G, has been used 35.907 G
                                 .progress
                                     .progress-bar.progress-bar-info(role='progressbar', style='width: 16%;')
