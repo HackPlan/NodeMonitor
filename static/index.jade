@@ -14,20 +14,20 @@ html
                     .navbar-collapse.collapse
                         ul.nav.navbar-nav
                             li.active
-                                a(href='/') Top
+                                a(href='/#') Top
                             li
-                                a(href='/') System
+                                a(href='/#System') System
                             li
-                                a(href='/') Memory
+                                a(href='/#MemoryDisk') Memory & Disk
                             li
-                                a(href='/') Disk
+                                a(href='/#User') User
                             li
-                                a(href='/') Process
+                                a(href='/#Process') Process
 
         .container
             .row
                 .col-md-4
-                    .panel.panel-default
+                    #System.panel.panel-default
                         .panel-heading
                             h3.panel-title System
                         table.table
@@ -58,7 +58,7 @@ html
                                         span#loadavg.label.label-info loading...
 
                 .col-md-8
-                    .panel.panel-default
+                    #MemoryDisk.panel.panel-default
                         .panel-heading
                             h3.panel-title  Memory & Disk
                         .panel-body
@@ -93,7 +93,7 @@ html
                                         | loading...
                                     #diskFreePer.progress-bar.progress-bar-success(role='progressbar', style='width: 50%;')
                                         | loading...
-            .panel.panel-default
+            #User.panel.panel-default
                 table.table.table-striped
                     thead
                         tr
@@ -110,7 +110,7 @@ html
                             td loading...
                             td loading...
 
-            .panel.panel-default
+            #Process.panel.panel-default
                 table.table.table-hover.table-condensed
                     thead
                         tr
