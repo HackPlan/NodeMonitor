@@ -13,3 +13,7 @@ NodeMonitor
 * 系统平均负载
 * 用户进程状况
 * 所有用户进程状况
+
+效果图：
+
+![NodeMonitor](http://i1.tietuku.com/41c726392df5e614.jpg)
