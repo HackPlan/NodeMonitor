@@ -3,14 +3,9 @@ body {
     background: #E0E0E0;
     font-family: "Monaco", "Menlo", "Consolas";
 }
-table {
-    font-size: 14px;
-}
-
 a:hover, a:focus {
     text-decoration: none;
 }
-
 .container {
     max-width: 95%;
     margin-left: auto;
@@ -20,13 +15,13 @@ abbr[title], abbr[data-original-title] {
     cursor: wait;
     border-bottom: 0;
 }
+table {
+    font-size: 14px;
+}
 td{
     white-space:nowrap;
 }
-#System {
-    overflow:hidden;
-}
-#Process {
+#System, #Process {
     overflow:hidden;
 }
 footer {

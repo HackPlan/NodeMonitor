@@ -3,7 +3,7 @@ socket.on "data", (data) ->
   $('#hostname').html(data.os.hostname)
   $('#system').html(data.os.type + " " + data.os.release)
   $('#cpus').html('<abbr title="' + data.os.cpus + '">' + data.os.cpus + '</abbr>')
-  $('#servertime').html(data.os.servertime)
+  startTime(data.os.servertime)
   $('#uptime').html(data.os.uptime)
   $('#loadavg').html(data.os.loadavg)
 
@@ -38,3 +38,36 @@ socket.on "data", (data) ->
   for i of data.ps["all"]
     psall += ("<tr><td>"+data.ps["all"][i][0]+"</td><td>"+data.ps["all"][i][1]+"</td><td>"+data.ps["all"][i][2]+"</td><td>"+data.ps["all"][i][3]+"</td><td>"+data.ps["all"][i][4]+"</td><td>"+data.ps["all"][i][5]+"</td><td>"+data.ps["all"][i][6]+"</td><td>"+data.ps["all"][i][7]+"</td><td>"+data.ps["all"][i][8]+"</td><td>"+data.ps["all"][i][9]+'</td><td><abbr title="' + data.ps["all"][i][10] + '">' + data.ps["all"][i][10] + "</abbr></td></tr>")
   $("#psall").html(psall)
+
+startTime = (servertime)->
+  setTime new Date servertime
+  setTimeout ->
+    time = new Date servertime
+    time.setSeconds time.getSeconds() + 1
+    setTime time
+  , 1000
+  setTimeout ->
+    time = new Date servertime
+    time.setSeconds time.getSeconds() + 2
+    setTime time
+  , 2000
+  setTimeout ->
+    time = new Date servertime
+    time.setSeconds time.getSeconds() + 3
+    setTime time
+  , 3000
+  setTimeout ->
+    time = new Date servertime
+    time.setSeconds time.getSeconds() + 4
+    setTime time
+  , 4000
+
+setTime = (time)->
+  hours = checkTime time.getHours()
+  minutes = checkTime time.getMinutes()
+  seconds = checkTime time.getSeconds()
+  $('#servertime').html(time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate() + " " + hours + ":" + minutes + ":" + seconds)
+
+checkTime = (i) ->
+  return "0" + i  if i < 10
+  return i
