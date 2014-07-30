@@ -1,9 +1,8 @@
 body {
     padding-top: 70px;
     background: #E0E0E0;
-    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important
+    font-family: "Monaco", "Menlo", "Consolas";
 }
-
 table {
     font-size: 14px;
 }
@@ -13,9 +12,22 @@ a:hover, a:focus {
 }
 
 .container {
-    max-width: 90%;
+    max-width: 95%;
     margin-left: auto;
     margin-right: auto
+}
+abbr[title], abbr[data-original-title] {
+    cursor: wait;
+    border-bottom: 0;
+}
+td{
+    white-space:nowrap;
+}
+#System {
+    overflow:hidden;
+}
+#Process {
+    overflow:hidden;
 }
 footer {
     line-height: 150%;
