@@ -16,7 +16,7 @@
 ## 效果图
 
 ![NodeMonitor](http://i1.tietuku.com/41c726392df5e614.jpg)
-
+![NodeMonitor](http://i2.tietuku.com/331c5a1dde13bb74.png)
 
 ## Licence
 

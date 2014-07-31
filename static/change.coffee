@@ -1,4 +1,4 @@
-socket = io.connect("http://xuxian.jimu.in:2957/")
+socket = io.connect("http://you.site/")
 socket.on "data", (data) ->
   $('#hostname').html(data.os.hostname)
   $('#system').html(data.os.type + " " + data.os.release)
