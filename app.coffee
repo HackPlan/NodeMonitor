@@ -26,7 +26,7 @@ setInterval sendData, 5000
 exports.runWebServer = ->
   app = http.createServer (req, res) ->
     reqfile = url.parse(req.url).pathname.slice(1).match(/[a-zA-Z0-9_ -.]+/) ? 'index.html'
-    fs.readFile './static/' + reqfile, (err, data) ->
+    fs.readFile __dirname + '/static/' + reqfile, (err, data) ->
       if err
         res.writeHead 500
         return res.end('Error loading ' + reqfile)
