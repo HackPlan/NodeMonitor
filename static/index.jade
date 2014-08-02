@@ -1,149 +1,140 @@
 html
-    head
-        meta(charset='utf-8')
-        title NodeMonitor
-        link(href='http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css', rel='stylesheet', type='text/css')
-        link(href='/style.css', rel='stylesheet', type='text/css')
+	head
+		meta(charset='utf-8')
+		title NodeMonitor
+		link(href='http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+		link(href='/spinner.css', rel='stylesheet', type='text/css')
+		link(href='/style.css', rel='stylesheet', type='text/css')
 
-    body
-        #navbar-wrapper
-            #navigation.navbar.navbar-default.navbar-fixed-top
-                .container
-                    .navbar-header
-                        a.navbar-brand(href='/') NodeMonitor
-                    .navbar-collapse.collapse
-                        ul.nav.navbar-nav
-                            li.active
-                                a(href='/#') Top
-                            li
-                                a(href='/#System') System
-                            li
-                                a(href='/#MemoryDisk') Memory & Disk
-                            li
-                                a(href='/#User') User
-                            li
-                                a(href='/#Process') Process
+	body(ng-app="main", ng-controller="MainCtrl")
+		
+		#navbar-wrapper
+			#navigation.navbar.navbar-default.navbar-fixed-top
+				.container
+					.navbar-header
+						a.navbar-brand(href='#') NodeMonitor
+					.navbar-collapse.collapse
+						ul.nav.navbar-nav
+							li
+								a(href='/#System') System
+							li
+								a(href='/#MemoryDisk') Memory & Disk
+							li
+								a(href='/#User') User
+							li
+								a(href='/#Process') Process
+		.container(ng-show="loading")
+			.spinner
+				.rect1
+				.rect2
+				.rect3
+				.rect4
+				.rect5
+		.container.ng-hide(ng-hide="loading")
+			.row
+				.col-md-4
+					#System.panel.panel-default
+						.panel-heading System
+						table.table
+							tbody
+								tr
+									td HostName
+									td
+										span#hostname {{system.hostname}}
+								tr
+									td System
+									td
+										span#system {{system.type}} {{system.release}}
+								tr
+									td Cpus
+									td
+										span#cpus(title="{{system.cpus}}") {{system.cpus}}
+								tr
+									td ServerTime
+									td
+										span#servertime {{system.servertime}}
+								tr
+									td UpTime
+									td
+										span#uptime {{system.uptime}}
+								tr
+									td Loadavg
+									td
+										span#loadavg {{system.loadavg}}
 
-        .container
-            .row
-                .col-md-4
-                    #System.panel.panel-default
-                        .panel-heading
-                            h3.panel-title System
-                        table.table
-                            tbody
-                                tr
-                                    td HostName
-                                    td
-                                        span#hostname loading...
-                                tr
-                                    td System
-                                    td
-                                        span#system loading...
-                                tr
-                                    td Cpus
-                                    td
-                                        span#cpus loading...
-                                tr
-                                    td ServerTime
-                                    td
-                                        span#servertime loading...
-                                tr
-                                    td UpTime
-                                    td
-                                        span#uptime loading...
-                                tr
-                                    td Loadavg
-                                    td
-                                        span#loadavg.label.label-info loading...
+				.col-md-8
+					#MemoryDisk.panel.panel-default
+						.panel-heading Memory & Disk
+						.panel-body
+							p Total memory&nbsp;
+								span#totalMem.label.label-primary {{mem.totalMem}}
+								span &nbsp;, Real memory usage&nbsp;
+								span#realMem.label.label-danger {{mem.realMem}}
+								span &nbsp;, Cache memory&nbsp;
+								span#cachedMem.label.label-warning {{mem.cachedMem}}
+							progress.progress
+								bar(value='mem.realMemPer', type='danger')
+									span {{mem.realMemPer}} %
+								bar(value='mem.cachedMemPer', type='warning')
+									span {{mem.cachedMemPer}} %
+								bar(value='mem.freeMemPer', type='success')
+									span {{mem.freeMemPer}} %
+							p SWAP total&nbsp;
+								span#swaptotalMem.label.label-primary {{mem.swaptotalMem}}
+								span &nbsp;, has been used&nbsp;
+								span#swapUsedMem.label.label-warning {{mem.swapUsedMem}}
+							progress.progress
+								bar(value='mem.swapUsedMemPer', type='warning')
+									span {{mem.swapUsedMemPer}} %
+								bar(value='mem.swapFreeMemPer', type='success')
+									span {{mem.swapFreeMemPer}} %
+							p Disk total&nbsp;
+								span#diskAll.label.label-primary {{disk.diskAll}}
+								span &nbsp;, has been used&nbsp;
+								span#diskUsed.label.label-danger {{disk.diskUsed}}
+							progress.progress
+								bar(value='disk.diskUsedPer', type='danger')
+									span {{disk.diskUsedPer}} %
+								bar(value='disk.diskFreePer', type='success')
+									span {{disk.diskFreePer}} %
+			#User.panel.panel-default
+				table.table.table-striped(at-table, at-list='psUser')
+					thead
+					tbody
+						tr
+							td(at-implicit, at-sortable, at-attribute='USER')
+							td(at-implicit, at-sortable, at-attribute='PS')
+							td(at-sortable, at-attribute='CPU') {{item.CPU | fixToOne}} %
+							td(at-sortable, at-attribute='MEM') {{item.MEM | fixToOne}} %
+							td(at-sortable, at-attribute='SWAP') {{item.SWAP | mb}} MB
 
-                .col-md-8
-                    #MemoryDisk.panel.panel-default
-                        .panel-heading
-                            h3.panel-title  Memory & Disk
-                        .panel-body
-                            p Total memory&nbsp;
-                                span#totalMem.label.label-primary loading...
-                                span &nbsp;, Real memory usage&nbsp;
-                                span#realMem.label.label-danger loading...
-                                span &nbsp;, Cache memory&nbsp;
-                                span#cachedMem.label.label-warning loading...
-                            .progress
-                                #realMemPer.progress-bar.progress-bar-danger(role='progressbar', style='width: 33%;')
-                                    | loading...
-                                #cachedMemPer.progress-bar.progress-bar-warning(role='progressbar', style='width: 34%;')
-                                    | loading...
-                                #freeMemPer.progress-bar.progress-bar-success(role='progressbar', style='width: 33%;')
-                                    | loading...
-                            p SWAP total&nbsp;
-                                span#swaptotalMem.label.label-primary loading...
-                                span &nbsp;, has been used&nbsp;
-                                span#swapUsedMem.label.label-warning loading...
-                            .progress
-                                #swapUsedMemPer.progress-bar.progress-bar-warning(role='progressbar', style='width: 50%;')
-                                    | loading...
-                                #swapFreeMemPer.progress-bar.progress-bar-success(role='progressbar', style='width: 50%;')
-                                    | loading...
-                            p Disk total&nbsp;
-                                span#diskAll.label.label-primary loading...
-                                span &nbsp;, has been used&nbsp;
-                                span#diskUsed.label.label-danger loading...
-                                .progress
-                                    #diskUsedPer.progress-bar.progress-bar-danger(role='progressbar', style='width: 50%;')
-                                        | loading...
-                                    #diskFreePer.progress-bar.progress-bar-success(role='progressbar', style='width: 50%;')
-                                        | loading...
-            #User.panel.panel-default
-                table.table.table-striped
-                    thead
-                        tr
-                            th USER
-                            th PS
-                            th %CPU
-                            th %MEM
-                            th %CACHE
-                    tbody#psuser
-                        tr
-                            td loading...
-                            td loading...
-                            td loading...
-                            td loading...
-                            td loading...
+			#Process.panel.panel-default
+				table.table.table-striped(at-table, at-list='psAll')
+					thead
+					tbody
+						tr
+							td(at-implicit, at-sortable, at-attribute='USER')
+							td(at-implicit, at-sortable, at-attribute='PID')
+							td(at-sortable, at-attribute='CPU') {{item['CPU']}} %
+							td(at-sortable, at-attribute='MEM') {{item['MEM']}} %
+							td(at-sortable, at-attribute='RES') {{item.RES | mb}} MB
+							td(at-sortable, at-attribute='VSZ') {{item.VSZ | mb}} MB
+							td(at-implicit, at-sortable, at-attribute='TTY')
+							td(at-implicit, at-sortable, at-attribute='STAT')
+							td(at-implicit, at-sortable, at-attribute='TIME')
+							td(at-attribute='COMMAND', title="{{item.COMMAND | nbsp}}", ng-bind-html="trustAsHtml(item.COMMAND)", width="100")
+		footer
+			.container
+				.pull-left
+					| Powered by&nbsp;
+					a.text-muted(href='https://github.com/faceair/NodeMonitor', target='_blank') NodeMonitor
+					| &nbsp;.
 
-            #Process.panel.panel-default
-                table.table.table-hover.table-condensed
-                    thead
-                        tr
-                            th USER
-                            th PID
-                            th %CPU
-                            th %MEM
-                            th VSZ
-                            th RES
-                            th TTY
-                            th STAT
-                            th START
-                            th TIME
-                            th COMMAND
-                    tbody#psall
-                        tr
-                            td loading...
-                            td loading...
-                            td loading...
-                            td loading...
-                            td loading...
-                            td loading...
-                            td loading...
-                            td loading...
-                            td loading...
-                            td loading...
-                            td loading...
-        footer
-            .container
-                .pull-left
-                    | Powered by&nbsp;
-                    a.text-muted(href='https://github.com/faceair/NodeMonitor', target='_blank') NodeMonitor
-                    | &nbsp;.
-        script(type='text/javascript', src='http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js')
-        script(type='text/javascript', src='http://cdn.staticfile.org/socket.io/0.9.16/socket.io.min.js')
-        script(type='text/javascript', src='/change.js')
+		script(type='text/javascript', src='/vendor/socket.io.min.js')
+		script(type='text/javascript', src='/bower_components/jquery/dist/jquery.min.js')
+		script(type='text/javascript', src='/bower_components/lodash/dist/lodash.min.js')
+		script(type='text/javascript', src='/bower_components/angular/angular.min.js')
+		script(type='text/javascript', src='/vendor/ui.bootstrap.progressbar.js')
+		script(type='text/javascript', src='/bower_components/angular-sanitize/angular-sanitize.min.js')
+		script(type='text/javascript', src='/bower_components/at-table/dist/angular-table.min.js')
+		script(type='text/javascript', src='/main.js')
